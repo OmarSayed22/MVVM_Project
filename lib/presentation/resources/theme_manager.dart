@@ -61,6 +61,10 @@ ThemeData getAppTheme() => ThemeData(
           color: ColorsManager.primaryColor, fontSize: FontSize.s12),
     ),
     //TextFormFieldTheme
+    textButtonTheme:  TextButtonThemeData(
+      style: TextButton.styleFrom(shadowColor: ColorsManager.primaryColorLight,)
+    )
+    ,
     inputDecorationTheme: InputDecorationTheme(
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSize.size12),
