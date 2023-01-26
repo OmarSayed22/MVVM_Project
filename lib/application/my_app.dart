@@ -10,6 +10,7 @@ class MyApp extends StatefulWidget {
   factory MyApp() => _instance();
 
   //-------------------------------------------------------
+  @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
     return MyAppState();
@@ -21,9 +22,8 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: getAppTheme(
-      ),
-     onGenerateRoute:RouteGenerator.getRoutes,
+      theme: getAppTheme(),
+      onGenerateRoute: RouteGenerator.getRoutes,
       initialRoute: Routes.splashRoute,
     );
   }

@@ -4,11 +4,11 @@ import 'package:flutter_advanced/application/app_prefrances.dart';
 import 'package:flutter_advanced/application/constants.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-const String APPLICATION_JSON = "application/json";
-const String CONTENT_TYPE = "content-type";
-const String ACCEPT = "accept";
-const String AUTHORIZATION = "authorization";
-const String DEFAULT_LANGUAGE = "language";
+const String applicationJson = "application/json";
+const String contentType = "content-type";
+const String accept = "accept";
+const String authorization = "authorization";
+const String defaultLanguage = "language";
 
 class DioFactory {
   final AppPreferences _appPreferences;
@@ -18,10 +18,10 @@ class DioFactory {
   Future<Dio> getDio() async {
     String appLanguage = await _appPreferences.getAppLanguage();
     Map<String, String> headers = {
-      CONTENT_TYPE: APPLICATION_JSON,
-      ACCEPT: APPLICATION_JSON,
-      AUTHORIZATION: Constants.token,
-      DEFAULT_LANGUAGE: appLanguage,
+      contentType: applicationJson,
+      accept: applicationJson,
+      authorization: Constants.token,
+      defaultLanguage: appLanguage,
     };
     Dio dio = Dio();
 
