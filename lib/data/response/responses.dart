@@ -11,50 +11,69 @@ class BaseResponse {
 }
 
 @JsonSerializable()
-class AuthenticationResponse extends BaseResponse {
-  @JsonKey(name: "customer")
-  CustomerResponse? customer;
-  @JsonKey(name: "contacts")
-  ContactsResponse? contacts;
-
-  AuthenticationResponse(this.contacts, this.customer);
-
-  factory AuthenticationResponse.fromJson(Map<String, dynamic> json) =>
-      _$AuthenticationResponseFromJson(json);
-
-  Map<String, dynamic> toJson() => _$AuthenticationResponseToJson(this);
-}
-
-@JsonSerializable()
 class CustomerResponse {
   @JsonKey(name: "id")
-  int? id;
+  String? id;
   @JsonKey(name: "name")
   String? name;
-  @JsonKey(name: "noOfNotifications")
-  int? noOfNotifications;
+  @JsonKey(name: "numOfNotifications")
+  int? numOfNotifications;
 
-  CustomerResponse(this.name, this.id, this.noOfNotifications);
+  CustomerResponse(this.id, this.name, this.numOfNotifications);
 
+  // from json
   factory CustomerResponse.fromJson(Map<String, dynamic> json) =>
       _$CustomerResponseFromJson(json);
 
+// to json
   Map<String, dynamic> toJson() => _$CustomerResponseToJson(this);
 }
 
 @JsonSerializable()
 class ContactsResponse {
   @JsonKey(name: "phone")
-  int? phone;
+  String? phone;
   @JsonKey(name: "email")
   String? email;
   @JsonKey(name: "link")
   String? link;
 
-  ContactsResponse(this.email, this.phone, this.link);
+  ContactsResponse(this.phone, this.email, this.link);
 
+  // from json
   factory ContactsResponse.fromJson(Map<String, dynamic> json) =>
       _$ContactsResponseFromJson(json);
 
+// to json
   Map<String, dynamic> toJson() => _$ContactsResponseToJson(this);
+}
+
+@JsonSerializable()
+class AuthenticationResponse extends BaseResponse {
+  @JsonKey(name: "customer")
+  CustomerResponse? customer;
+  @JsonKey(name: "contacts")
+  ContactsResponse? contacts;
+
+  AuthenticationResponse(this.customer, this.contacts);
+
+  // from json
+  factory AuthenticationResponse.fromJson(Map<String, dynamic> json) =>
+      _$AuthenticationResponseFromJson(json);
+
+// to json
+  Map<String, dynamic> toJson() => _$AuthenticationResponseToJson(this);
+}
+
+@JsonSerializable()
+class ForgetPasswordResponse extends BaseResponse {
+
+  // from json
+  factory ForgetPasswordResponse.fromJson(Map<String, dynamic> json) =>
+      _$ForgetPasswordResponseFromJson(json);
+
+// to json
+  Map<String, dynamic> toJson() => _$ForgetPasswordResponseToJson(this);
+
+  ForgetPasswordResponse();
 }

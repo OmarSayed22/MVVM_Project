@@ -1,5 +1,5 @@
 import 'package:flutter_advanced/application/constants.dart';
-import 'package:flutter_advanced/presentation/resources/languge_manager.dart';
+import 'package:flutter_advanced/presentation/resources/language_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppPreferences {

@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter_advanced/presentation/base/base_view_model.dart';
 import 'package:flutter_advanced/presentation/common/freezed_data_class.dart';
+import 'package:flutter_advanced/presentation/common/state_renderer/state_renderer_implementation.dart';
 
 import '../../../domain/use_cases/login_use_case.dart';
+import '../../common/state_renderer/state_renderer.dart';
 
 class LoginViewModel extends BaseViewModel
     with LoginViewModelInputs, LoginViewModelOutputs {
@@ -15,6 +17,8 @@ class LoginViewModel extends BaseViewModel
       StreamController<void>.broadcast();
   var loginObject = LoginObject("", "");
 
+  final isUserLoggedInStreamController = StreamController<bool>.broadcast();
+
   final LoginUseCase _loginUseCase;
 
   LoginViewModel(this._loginUseCase);
@@ -22,15 +26,26 @@ class LoginViewModel extends BaseViewModel
   // inputs
   @override
   void dispose() {
+    super.dispose();
     _userNameStreamController.close();
     _passwordStreamController.close();
     _areAllInputsValidStreamController.close();
+    isUserLoggedInStreamController.close();
   }
 
   @override
   login() async {
-    await _loginUseCase
-        .execute(LoginUseCaseInput(loginObject.userName, loginObject.password));
+    inputState.add(
+        LoadingState(stateRendererType: StateRendererTypes.popupLoadingState));
+    (await _loginUseCase.execute(
+            LoginUseCaseInput(loginObject.userName, loginObject.password)))
+        .fold((failure) {
+      inputState
+          .add(ErrorState(StateRendererTypes.popupErrorState, failure.message));
+    }, (data) {
+      inputState.add(ContentState());
+      isUserLoggedInStreamController.add(true);
+    });
   }
 
   @override
@@ -48,7 +63,9 @@ class LoginViewModel extends BaseViewModel
   }
 
   @override
-  void start() {}
+  void start() {
+    inputState.add(ContentState());
+  }
 
   @override
   Sink get inputPassword => _passwordStreamController.sink;

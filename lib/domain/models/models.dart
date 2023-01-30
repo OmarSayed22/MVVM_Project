@@ -21,7 +21,7 @@ class SliderViewObject {
 
 // login Model
 class Customer {
-  int id;
+  String id;
   String name;
   int noOfNotifications;
 
@@ -29,7 +29,7 @@ class Customer {
 }
 
 class Contacts {
-  int phone;
+  String phone;
   String email;
   String link;
 
@@ -41,4 +41,10 @@ class Authentication {
   Contacts? contacts;
 
   Authentication(this.contacts, this.customer);
+}
+
+class ForgetPassword {
+  String supportMessage;
+
+  ForgetPassword(this.supportMessage);
 }

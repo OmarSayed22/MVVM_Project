@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../resources/resources.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -13,7 +14,18 @@ class HomeView extends StatefulWidget {
 class HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Container();
+    return Container(
+      color: Colors.amberAccent,
+      child: Center(
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: ColorsManager.darkGrayColor),
+          onPressed: () {
+            Navigator.popAndPushNamed(context, Routes.loginRoute);
+          },
+          child: null,
+        ),
+      ),
+    );
   }
 }

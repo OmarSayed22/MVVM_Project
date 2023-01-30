@@ -5,7 +5,7 @@ import 'package:flutter_advanced/application/constants.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 const String applicationJson = "application/json";
-const String contentType = "content-type";
+const String contentType = "Content-Type";
 const String accept = "accept";
 const String authorization = "authorization";
 const String defaultLanguage = "language";

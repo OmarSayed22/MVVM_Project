@@ -6,11 +6,12 @@ enum StateRendererTypes {
   //Popup States (Dialog)
   popupLoadingState,
   popupErrorState,
-
+  popupSuccessState,
 // Full Screen States
   fullScreenLoadingState,
   fullScreenErrorState,
   fullScreenEmptyState,
+  fullScreenSuccessState,
   contentState,
 }
 
@@ -23,7 +24,7 @@ class StateRenderer extends StatelessWidget {
   const StateRenderer(
       {required this.stateRendererTypes,
       this.title = "",
-      this.message = AppStringsManager.loading,
+      required this.message,
       required this.retryActionFunction,
       super.key});
 
@@ -35,11 +36,20 @@ class StateRenderer extends StatelessWidget {
   Widget _getStateWidget(BuildContext context) {
     switch (stateRendererTypes) {
       case StateRendererTypes.popupLoadingState:
-        return _buildPopupDialog(
-            context, [_buildAnimatedImage(JsonAssets.loading)]);
+        return _buildPopupDialog(context, [
+          _buildAnimatedImage(JsonAssets.loading),
+          _buildMessage(message),
+        ]);
       case StateRendererTypes.popupErrorState:
         return _buildPopupDialog(context, [
           _buildAnimatedImage(JsonAssets.error),
+          _buildMessage(message),
+          _buildRetryButton(AppStringsManager.ok, context)
+        ]);
+      case StateRendererTypes.popupSuccessState:
+        return _buildPopupDialog(context, [
+          _buildAnimatedImage(JsonAssets.success),
+          _buildTitle(title),
           _buildMessage(message),
           _buildRetryButton(AppStringsManager.ok, context)
         ]);
@@ -77,7 +87,8 @@ class StateRenderer extends StatelessWidget {
   }
 
   Widget _buildAnimatedImage(String imagePath) {
-    return SizedBox(
+    return Container(
+      padding: const EdgeInsets.all(AppPadding.p8),
       height: AppSize.size100,
       width: AppSize.size100,
       child: Lottie.asset(imagePath),
@@ -85,15 +96,29 @@ class StateRenderer extends StatelessWidget {
   }
 
   Widget _buildMessage(String message) {
+    return Padding(
+      padding: const EdgeInsets.all(AppPadding.p16),
+      child: Text(
+        message,
+        textAlign: TextAlign.center,
+        style: getRegularStyle(
+            color: ColorsManager.blackColor, fontSize: FontSize.s16),
+      ),
+    );
+  }
+
+  Widget _buildTitle(String title) {
     return Text(
-      message,
+      title,
+      textAlign: TextAlign.center,
       style: getRegularStyle(
-          color: ColorsManager.blackColor, fontSize: FontSize.s18),
+          color: ColorsManager.blackColor, fontSize: FontSize.s16),
     );
   }
 
   Widget _buildRetryButton(String buttonTitle, BuildContext context) {
-    return SizedBox(
+    return Container(
+        margin: const EdgeInsets.all(AppPadding.p16),
         width: double.infinity,
         child: ElevatedButton(
             onPressed: () {
@@ -113,7 +138,6 @@ class StateRenderer extends StatelessWidget {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSize.size14)),
       elevation: AppSize.size1_5,
-      backgroundColor: Colors.transparent,
       child: Container(
         decoration: BoxDecoration(
             color: ColorsManager.whiteColor,

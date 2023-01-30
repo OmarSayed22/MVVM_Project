@@ -7,6 +7,8 @@ abstract class FlowState {
   StateRendererTypes getStateRendererType();
 
   String getMessage();
+
+  String? getTitle();
 }
 
 // Loading State (full Screen or popup)
@@ -23,6 +25,9 @@ class LoadingState extends FlowState {
 
   @override
   StateRendererTypes getStateRendererType() => stateRendererType;
+
+  @override
+  String? getTitle() => null;
 }
 
 // error State (full Screen or popup)
@@ -37,6 +42,26 @@ class ErrorState extends FlowState {
 
   @override
   StateRendererTypes getStateRendererType() => stateRendererType;
+
+  @override
+  String? getTitle() => AppStringsManager.error;
+}
+
+//Success State (full Screen or popup)
+class SuccessState extends FlowState {
+  StateRendererTypes stateRendererType;
+  String message;
+
+  SuccessState(this.stateRendererType, this.message);
+
+  @override
+  String getMessage() => message;
+
+  @override
+  StateRendererTypes getStateRendererType() => stateRendererType;
+
+  @override
+  String? getTitle() => AppStringsManager.success;
 }
 
 // content State (full Screen or popup)
@@ -48,6 +73,11 @@ class ContentState extends FlowState {
 
   @override
   StateRendererTypes getStateRendererType() => StateRendererTypes.contentState;
+
+  @override
+  String? getTitle() {
+    return null;
+  }
 }
 
 // Empty State (full Screen )
@@ -62,6 +92,11 @@ class EmptyState extends FlowState {
   @override
   StateRendererTypes getStateRendererType() =>
       StateRendererTypes.fullScreenEmptyState;
+
+  @override
+  String? getTitle() {
+    return null;
+  }
 }
 
 extension FlowStateExtension on FlowState {
@@ -71,7 +106,7 @@ extension FlowStateExtension on FlowState {
       case LoadingState:
         if (getStateRendererType() == StateRendererTypes.popupLoadingState) {
           //show popup loading state
-          showPopup(context, getStateRendererType(), getMessage());
+          showPopup(context, getStateRendererType(), getTitle(), getMessage());
           return contentScreenWidget;
         } else {
           //show full screen loading state
@@ -84,7 +119,7 @@ extension FlowStateExtension on FlowState {
         dismissDialog(context);
         if (getStateRendererType() == StateRendererTypes.popupErrorState) {
           //show popup Error state
-          showPopup(context, getStateRendererType(), getMessage());
+          showPopup(context, getStateRendererType(), getTitle(), getMessage());
           return contentScreenWidget;
         } else {
           //show full screen Error state
@@ -93,6 +128,18 @@ extension FlowStateExtension on FlowState {
               message: getMessage(),
               retryActionFunction: retryActionFunction);
         }
+      case SuccessState:
+        dismissDialog(context);
+        if (getStateRendererType() == StateRendererTypes.popupSuccessState) {
+          showPopup(context, getStateRendererType(), getTitle(), getMessage());
+          return contentScreenWidget;
+        } else {
+          return StateRenderer(
+              stateRendererTypes: getStateRendererType(),
+              message: getMessage(),
+              retryActionFunction: retryActionFunction);
+        }
+
       case ContentState:
         dismissDialog(context);
         return contentScreenWidget;
@@ -118,13 +165,16 @@ extension FlowStateExtension on FlowState {
   }
 
   showPopup(BuildContext context, StateRendererTypes stateRendererType,
-      String message) {
+      String? title, String message) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       showDialog(
           context: context,
           builder: (BuildContext context) => StateRenderer(
-              stateRendererTypes: stateRendererType,
-              retryActionFunction: () {}));
+                stateRendererTypes: stateRendererType,
+                title: title ?? "",
+                retryActionFunction: () {},
+                message: message,
+              ));
     });
   }
 }

@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$LoginObject {
   String get userName => throw _privateConstructorUsedError;
+
   String get password => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -29,6 +30,7 @@ abstract class $LoginObjectCopyWith<$Res> {
   factory $LoginObjectCopyWith(
           LoginObject value, $Res Function(LoginObject) then) =
       _$LoginObjectCopyWithImpl<$Res, LoginObject>;
+
   @useResult
   $Res call({String userName, String password});
 }
@@ -40,6 +42,7 @@ class _$LoginObjectCopyWithImpl<$Res, $Val extends LoginObject>
 
   // ignore: unused_field
   final $Val _value;
+
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -68,6 +71,7 @@ abstract class _$$_LoginObjectCopyWith<$Res>
   factory _$$_LoginObjectCopyWith(
           _$_LoginObject value, $Res Function(_$_LoginObject) then) =
       __$$_LoginObjectCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({String userName, String password});
@@ -142,10 +146,133 @@ abstract class _LoginObject implements LoginObject {
 
   @override
   String get userName;
+
   @override
   String get password;
+
   @override
   @JsonKey(ignore: true)
   _$$_LoginObjectCopyWith<_$_LoginObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$EmailObject {
+  String get email => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $EmailObjectCopyWith<EmailObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $EmailObjectCopyWith<$Res> {
+  factory $EmailObjectCopyWith(
+          EmailObject value, $Res Function(EmailObject) then) =
+      _$EmailObjectCopyWithImpl<$Res, EmailObject>;
+
+  @useResult
+  $Res call({String email});
+}
+
+/// @nodoc
+class _$EmailObjectCopyWithImpl<$Res, $Val extends EmailObject>
+    implements $EmailObjectCopyWith<$Res> {
+  _$EmailObjectCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+  }) {
+    return _then(_value.copyWith(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_EmailObjectCopyWith<$Res>
+    implements $EmailObjectCopyWith<$Res> {
+  factory _$$_EmailObjectCopyWith(
+          _$_EmailObject value, $Res Function(_$_EmailObject) then) =
+      __$$_EmailObjectCopyWithImpl<$Res>;
+
+  @override
+  @useResult
+  $Res call({String email});
+}
+
+/// @nodoc
+class __$$_EmailObjectCopyWithImpl<$Res>
+    extends _$EmailObjectCopyWithImpl<$Res, _$_EmailObject>
+    implements _$$_EmailObjectCopyWith<$Res> {
+  __$$_EmailObjectCopyWithImpl(
+      _$_EmailObject _value, $Res Function(_$_EmailObject) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+  }) {
+    return _then(_$_EmailObject(
+      null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_EmailObject implements _EmailObject {
+  _$_EmailObject(this.email);
+
+  @override
+  final String email;
+
+  @override
+  String toString() {
+    return 'EmailObject(email: $email)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_EmailObject &&
+            (identical(other.email, email) || other.email == email));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_EmailObjectCopyWith<_$_EmailObject> get copyWith =>
+      __$$_EmailObjectCopyWithImpl<_$_EmailObject>(this, _$identity);
+}
+
+abstract class _EmailObject implements EmailObject {
+  factory _EmailObject(final String email) = _$_EmailObject;
+
+  @override
+  String get email;
+
+  @override
+  @JsonKey(ignore: true)
+  _$$_EmailObjectCopyWith<_$_EmailObject> get copyWith =>
       throw _privateConstructorUsedError;
 }

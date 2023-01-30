@@ -23,4 +23,12 @@ class AppStringsManager {
   static const retryAgain = "Retry Again";
 
   static const ok = "OK";
+
+  static const emailErrMassage =
+      " the email entered is not valid,please try again";
+  static const resetPassword = " Reset Password";
+
+  static const error = "Error...";
+
+  static const success = "Success";
 }

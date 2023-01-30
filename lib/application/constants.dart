@@ -1,5 +1,5 @@
 class Constants {
-  static const String baseUrl = "https://fluttercleanlogin.mocklab.io/";
+  static const String baseUrl = "https://z0dvd.mocklab.io/";
   static const String token = "send token here";
   static const String empty = "";
   static const int zero = 0;

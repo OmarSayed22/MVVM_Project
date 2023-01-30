@@ -6,19 +6,23 @@ import '../response/responses.dart';
 
 extension CustomerResponseMapper on CustomerResponse? {
   Customer toDomain() => Customer(
-      this?.id.toZero() ?? Constants.zero,
+      this?.id.toEmpty() ?? Constants.empty,
       this?.name.toEmpty() ?? Constants.empty,
-      this?.noOfNotifications.toZero() ?? Constants.zero);
+      this?.numOfNotifications.toZero() ?? Constants.zero);
 }
 
 extension ContactsResponseMapper on ContactsResponse? {
   Contacts toDomain() => Contacts(
       this?.email.toEmpty() ?? Constants.empty,
-      this?.phone.toZero() ?? Constants.zero,
+      (this?.phone.toEmpty() ?? Constants.empty),
       this?.link.toEmpty() ?? Constants.empty);
 }
 
 extension AuthenticationResponseMapper on AuthenticationResponse? {
   Authentication toDomain() =>
       Authentication(this?.contacts.toDomain(), this?.customer.toDomain());
+}
+
+extension ForgetPasswordResponseMapper on ForgetPasswordResponse? {
+  String toDomain() => this?.message.toEmpty() ?? Constants.empty;
 }

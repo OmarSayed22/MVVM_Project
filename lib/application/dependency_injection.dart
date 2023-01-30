@@ -6,11 +6,14 @@ import 'package:flutter_advanced/data/network/network_info.dart';
 import 'package:flutter_advanced/data/remote/data_sources/remote_data_source.dart';
 import 'package:flutter_advanced/data/repositories/repositry_impl.dart';
 import 'package:flutter_advanced/domain/repositories/repositories.dart';
+import 'package:flutter_advanced/domain/use_cases/reset_password_use_case.dart';
 import 'package:flutter_advanced/domain/use_cases/login_use_case.dart';
-import 'package:flutter_advanced/presentation/login/viewmodel/login_view_model.dart';
+import 'package:flutter_advanced/presentation/login/view_model/login_view_model.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../presentation/forgot_password/forgot_password_view_model.dart';
 
 final instance = GetIt.instance;
 
@@ -45,5 +48,14 @@ initLoginModule() {
   if (!GetIt.I.isRegistered<LoginViewModel>()) {
     instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
     instance.registerFactory<LoginViewModel>(() => LoginViewModel(instance()));
+  }
+}
+
+initForgetPasswordModule() {
+  if (!GetIt.I.isRegistered<ForgetPasswordViewModel>()) {
+    instance.registerFactory<ResetPasswordUseCase>(
+        () => ResetPasswordUseCase(instance()));
+    instance.registerFactory<ForgetPasswordViewModel>(
+        () => ForgetPasswordViewModel(instance()));
   }
 }
