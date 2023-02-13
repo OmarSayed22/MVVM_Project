@@ -5,7 +5,7 @@ import 'package:retrofit/http.dart';
 
 part 'app_service.g.dart';
 
-@RestApi(baseUrl: Constants.baseUrl)
+@RestApi(baseUrl: Constants.kBaseUrl)
 abstract class AppServiceClient {
   factory AppServiceClient(Dio dio, {String? baseUrl}) = _AppServiceClient;
 
@@ -15,4 +15,18 @@ abstract class AppServiceClient {
 
   @POST("customers/reset-password")
   Future<ForgetPasswordResponse> forgetPassword(@Field("email") String email);
+
+  @POST("customers/signup")
+  Future<AuthenticationResponse> signup(
+      @Field("firstName") String firstName,
+      @Field("lastName") String lastName,
+      @Field("countryMobileCode") String countryMobileCode,
+      @Field("mobileNumber") String mobileNumber,
+      @Field("email") String email,
+      @Field("password") String password,
+      @Field("confirmPassword") String confirmPassword,
+      @Field("profilePicture") String profilePicture);
+
+  @GET("/home")
+  Future<HomeDataResponse> getHomeData();
 }

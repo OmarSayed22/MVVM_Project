@@ -11,7 +11,11 @@ class ImageAssets {
   static const String rightArrow = '$imagePath/right_arrow_ic.svg';
   static const String solidCircle = '$imagePath/solid_circle_ic.svg';
   static const String hollowCircle = '$imagePath/hollow_circle_ic.svg';
-
+  static const String home = '$imagePath/home.svg';
+  static const String search = '$imagePath/search.svg';
+  static const String notification = '$imagePath/bell.svg';
+  static const String settings = '$imagePath/more.svg';
+  static const String logout = '$imagePath/logo.svg';
 }
 
 class JsonAssets {

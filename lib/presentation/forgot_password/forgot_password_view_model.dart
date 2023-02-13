@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_advanced/domain/use_cases/reset_password_use_case.dart';
 import 'package:flutter_advanced/presentation/base/base_view_model.dart';
 import 'package:flutter_advanced/presentation/common/state_renderer/state_renderer.dart';
+import 'package:flutter_advanced/presentation/resources/resources.dart';
 
 import '../common/freezed_data_class.dart';
 import '../common/state_renderer/state_renderer_implementation.dart';
@@ -50,9 +51,7 @@ class ForgetPasswordViewModel extends BaseViewModel
 
   _isEmailValid(String email) {
     if (email.isNotEmpty) {
-      return RegExp(
-              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-          .hasMatch(email);
+      return RegExp(AppStringsManager.emailPattern).hasMatch(email);
     }
   }
 

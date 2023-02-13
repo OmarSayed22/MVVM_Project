@@ -54,10 +54,12 @@ class StateRenderer extends StatelessWidget {
           _buildRetryButton(AppStringsManager.ok, context)
         ]);
       case StateRendererTypes.fullScreenLoadingState:
-        return _buildItemsColumn([
-          _buildAnimatedImage(JsonAssets.loading),
-          _buildMessage(message),
-        ]);
+        return Center(
+          child: _buildItemsColumn([
+            _buildAnimatedImage(JsonAssets.loading),
+            _buildMessage(message),
+          ]),
+        );
       case StateRendererTypes.fullScreenErrorState:
         return _buildItemsColumn([
           _buildAnimatedImage(JsonAssets.error),
@@ -76,10 +78,10 @@ class StateRenderer extends StatelessWidget {
     }
   }
 
-  Widget _buildItemsColumn(List<Widget> children,
-      {MainAxisSize mainAxisSize = MainAxisSize.max}) {
+  Widget _buildItemsColumn(
+    List<Widget> children,
+  ) {
     return Column(
-      mainAxisSize: mainAxisSize,
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: children,
@@ -96,10 +98,23 @@ class StateRenderer extends StatelessWidget {
   }
 
   Widget _buildMessage(String message) {
-    return Padding(
-      padding: const EdgeInsets.all(AppPadding.p16),
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.p16),
+        child: Text(
+          message,
+          textAlign: TextAlign.center,
+          style: getRegularStyle(
+              color: ColorsManager.blackColor, fontSize: FontSize.s16),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTitle(String title) {
+    return Center(
       child: Text(
-        message,
+        title,
         textAlign: TextAlign.center,
         style: getRegularStyle(
             color: ColorsManager.blackColor, fontSize: FontSize.s16),
@@ -107,30 +122,23 @@ class StateRenderer extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle(String title) {
-    return Text(
-      title,
-      textAlign: TextAlign.center,
-      style: getRegularStyle(
-          color: ColorsManager.blackColor, fontSize: FontSize.s16),
-    );
-  }
-
   Widget _buildRetryButton(String buttonTitle, BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.all(AppPadding.p16),
-        width: double.infinity,
-        child: ElevatedButton(
-            onPressed: () {
-              if (stateRendererTypes ==
-                  StateRendererTypes.fullScreenErrorState) {
-                retryActionFunction.call();
-              } else {
-                // stateRendererTypes==StateRendererTypes.popupErrorState
-                Navigator.of(context).pop();
-              }
-            },
-            child: Text(buttonTitle)));
+    return Center(
+      child: Container(
+          margin: const EdgeInsets.all(AppPadding.p16),
+          width: double.infinity,
+          child: ElevatedButton(
+              onPressed: () {
+                if (stateRendererTypes ==
+                    StateRendererTypes.fullScreenErrorState) {
+                  retryActionFunction.call();
+                } else {
+                  // stateRendererTypes==StateRendererTypes.popupErrorState
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text(buttonTitle))),
+    );
   }
 
   Widget _buildPopupDialog(BuildContext context, List<Widget> children) {
@@ -144,8 +152,17 @@ class StateRenderer extends StatelessWidget {
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(AppSize.size14),
             boxShadow: const [BoxShadow(color: Colors.black26)]),
-        child: _buildItemsColumn(children, mainAxisSize: MainAxisSize.min),
+        child: _buildDialogContent(children),
       ),
+    );
+  }
+
+  Column _buildDialogContent(List<Widget> children) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: children,
     );
   }
 }

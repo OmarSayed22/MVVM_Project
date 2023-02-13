@@ -6,23 +6,70 @@ import '../response/responses.dart';
 
 extension CustomerResponseMapper on CustomerResponse? {
   Customer toDomain() => Customer(
-      this?.id.toEmpty() ?? Constants.empty,
-      this?.name.toEmpty() ?? Constants.empty,
-      this?.numOfNotifications.toZero() ?? Constants.zero);
+      this?.id?.toZero() ?? Constants.kZero,
+      this?.name.toEmpty() ?? Constants.kEmpty,
+      this?.numOfNotifications.toZero() ?? Constants.kZero);
 }
 
 extension ContactsResponseMapper on ContactsResponse? {
   Contacts toDomain() => Contacts(
-      this?.email.toEmpty() ?? Constants.empty,
-      (this?.phone.toEmpty() ?? Constants.empty),
-      this?.link.toEmpty() ?? Constants.empty);
+      this?.email.toEmpty() ?? Constants.kEmpty,
+      (this?.phone.toEmpty() ?? Constants.kEmpty),
+      this?.link.toEmpty() ?? Constants.kEmpty);
 }
 
 extension AuthenticationResponseMapper on AuthenticationResponse? {
-  Authentication toDomain() =>
-      Authentication(this?.contacts.toDomain(), this?.customer.toDomain());
+  Authentication toDomain() => Authentication(
+      this?.message.toEmpty() ?? Constants.kEmpty,
+      this?.contacts.toDomain(),
+      this?.customer.toDomain());
 }
 
 extension ForgetPasswordResponseMapper on ForgetPasswordResponse? {
-  String toDomain() => this?.message.toEmpty() ?? Constants.empty;
+  String toDomain() => this?.message.toEmpty() ?? Constants.kEmpty;
+}
+
+extension ServicesResponseMapper on ServicesResponse? {
+  Services toDomain() => Services(
+      this?.id.toZero() ?? Constants.kZero,
+      this?.title.toEmpty() ?? Constants.kEmpty,
+      this?.image.toEmpty() ?? Constants.kEmpty);
+}
+
+extension BannersResponseMapper on BannersResponse? {
+  Banners toDomain() => Banners(
+      this?.id.toZero() ?? Constants.kZero,
+      this?.link.toEmpty() ?? Constants.kEmpty,
+      this?.title.toEmpty() ?? Constants.kEmpty,
+      this?.image.toEmpty() ?? Constants.kEmpty);
+}
+
+extension StoresResponseMapper on StoresResponse? {
+  Stores toDomain() => Stores(
+      this?.id.toZero() ?? Constants.kZero,
+      this?.title.toEmpty() ?? Constants.kEmpty,
+      this?.image.toEmpty() ?? Constants.kEmpty);
+}
+
+extension HomeDataResponseMapper on HomeDataResponse? {
+  HomeData toDomain() {
+    List<Services> services =
+        (this?.dataResponse?.servicesResponse?.map((e) => e.toDomain()) ??
+                const Iterable<Services>.empty())
+            .cast<Services>()
+            .toList();
+    List<Banners> banners =
+        (this?.dataResponse?.bannersResponse?.map((e) => e.toDomain()) ??
+                const Iterable<Banners>.empty())
+            .cast<Banners>()
+            .toList();
+    List<Stores> stores =
+        (this?.dataResponse?.storesResponse?.map((e) => e.toDomain()) ??
+                const Iterable<Stores>.empty())
+            .cast<Stores>()
+            .toList();
+
+    Data data = Data(services, banners, stores);
+    return HomeData(this?.message.toEmpty() ?? Constants.kEmpty, data);
+  }
 }

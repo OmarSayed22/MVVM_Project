@@ -12,7 +12,6 @@ class MyApp extends StatefulWidget {
   //-------------------------------------------------------
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return MyAppState();
   }
 }
@@ -21,10 +20,14 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: (context, SplashView) {
+        return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+            child: SplashView!);
+      },
       debugShowCheckedModeBanner: false,
       theme: getAppTheme(),
       onGenerateRoute: RouteGenerator.getRoutes,
-      initialRoute: Routes.splashRoute,
     );
   }
 }

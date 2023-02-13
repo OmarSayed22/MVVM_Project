@@ -9,12 +9,9 @@ import '../../common/state_renderer/state_renderer.dart';
 
 class LoginViewModel extends BaseViewModel
     with LoginViewModelInputs, LoginViewModelOutputs {
-  final StreamController _userNameStreamController =
-      StreamController<String>.broadcast();
-  final StreamController _passwordStreamController =
-      StreamController<String>.broadcast();
-  final StreamController _areAllInputsValidStreamController =
-      StreamController<void>.broadcast();
+  final _userNameStreamController = StreamController<String>.broadcast();
+  final _passwordStreamController = StreamController<String>.broadcast();
+  final _areAllInputsValidStreamController = StreamController<void>.broadcast();
   var loginObject = LoginObject("", "");
 
   final isUserLoggedInStreamController = StreamController<bool>.broadcast();
@@ -43,7 +40,8 @@ class LoginViewModel extends BaseViewModel
       inputState
           .add(ErrorState(StateRendererTypes.popupErrorState, failure.message));
     }, (data) {
-      inputState.add(ContentState());
+      inputState.add(
+          SuccessState(StateRendererTypes.popupSuccessState, data.message));
       isUserLoggedInStreamController.add(true);
     });
   }

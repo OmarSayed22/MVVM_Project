@@ -31,8 +31,10 @@ class AppPadding {
 class AppSize {
   static const double size0 = 0.0;
   static const double size1 = 1.0;
+  static const double size2 = 2.0;
   static const double size1_5 = 1.5;
   static const double size4 = 4.0;
+  static const double size6 = 6.0;
   static const double size8 = 8.0;
   static const double size10 = 10.0;
   static const double size12 = 12.0;
@@ -48,6 +50,9 @@ class AppSize {
   static const double size60 = 60.0;
   static const double size80 = 80.0;
   static const double size100 = 100.0;
+  static const double size105 = 105.0;
+  static const double size125 = 125.0;
+  static const double size145 = 145.0;
   static const double size150 = 150.0;
   static const double size180 = 180.0;
   static const double size200 = 200.0;
@@ -55,5 +60,7 @@ class AppSize {
 }
 
 class AppDuration {
-  static const int splashViewDuration = 5; //in seconds
+  static const int splashViewDuration = 5;
+
+  static const int bannerDuration = 2; //in seconds
 }

@@ -7,7 +7,7 @@ part of 'responses.dart';
 // **************************************************************************
 
 BaseResponse _$BaseResponseFromJson(Map<String, dynamic> json) => BaseResponse()
-  ..status = int.parse(json['status'])
+  ..status = json['status'] as int?
   ..message = json['message'] as String?;
 
 Map<String, dynamic> _$BaseResponseToJson(BaseResponse instance) =>
@@ -18,7 +18,7 @@ Map<String, dynamic> _$BaseResponseToJson(BaseResponse instance) =>
 
 CustomerResponse _$CustomerResponseFromJson(Map<String, dynamic> json) =>
     CustomerResponse(
-      json['id'] as String?,
+      json['id'] as int?,
       json['name'] as String?,
       json['numOfNotifications'] as int?,
     );
@@ -54,7 +54,7 @@ AuthenticationResponse _$AuthenticationResponseFromJson(
           ? null
           : ContactsResponse.fromJson(json['contacts'] as Map<String, dynamic>),
     )
-      ..status = int.parse(json['status'])
+      ..status = json['status'] as int?
       ..message = json['message'] as String?;
 
 Map<String, dynamic> _$AuthenticationResponseToJson(
@@ -69,7 +69,7 @@ Map<String, dynamic> _$AuthenticationResponseToJson(
 ForgetPasswordResponse _$ForgetPasswordResponseFromJson(
         Map<String, dynamic> json) =>
     ForgetPasswordResponse()
-      ..status = int.parse(json['status'])
+      ..status = json['status'] as int?
       ..message = json['message'] as String?;
 
 Map<String, dynamic> _$ForgetPasswordResponseToJson(
@@ -77,4 +77,83 @@ Map<String, dynamic> _$ForgetPasswordResponseToJson(
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
+    };
+
+ServicesResponse _$ServicesResponseFromJson(Map<String, dynamic> json) =>
+    ServicesResponse(
+      json['id'] as int?,
+      json['title'] as String?,
+      json['image'] as String?,
+    );
+
+Map<String, dynamic> _$ServicesResponseToJson(ServicesResponse instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'title': instance.title,
+      'image': instance.image,
+    };
+
+BannersResponse _$BannersResponseFromJson(Map<String, dynamic> json) =>
+    BannersResponse(
+      json['id'] as int?,
+      json['link'] as String?,
+      json['title'] as String?,
+      json['image'] as String?,
+    );
+
+Map<String, dynamic> _$BannersResponseToJson(BannersResponse instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'link': instance.link,
+      'title': instance.title,
+      'image': instance.image,
+    };
+
+StoresResponse _$StoresResponseFromJson(Map<String, dynamic> json) =>
+    StoresResponse(
+      json['id'] as int?,
+      json['title'] as String?,
+      json['image'] as String?,
+    );
+
+Map<String, dynamic> _$StoresResponseToJson(StoresResponse instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'title': instance.title,
+      'image': instance.image,
+    };
+
+DataResponse _$DataResponseFromJson(Map<String, dynamic> json) => DataResponse(
+      (json['services'] as List<dynamic>?)
+          ?.map((e) => ServicesResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      (json['banners'] as List<dynamic>?)
+          ?.map((e) => BannersResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      (json['stores'] as List<dynamic>?)
+          ?.map((e) => StoresResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$DataResponseToJson(DataResponse instance) =>
+    <String, dynamic>{
+      'services': instance.servicesResponse,
+      'banners': instance.bannersResponse,
+      'stores': instance.storesResponse,
+    };
+
+HomeDataResponse _$HomeDataResponseFromJson(Map<String, dynamic> json) =>
+    HomeDataResponse(
+      json['data'] == null
+          ? null
+          : DataResponse.fromJson(json['data'] as Map<String, dynamic>),
+    )
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$HomeDataResponseToJson(HomeDataResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'data': instance.dataResponse,
     };

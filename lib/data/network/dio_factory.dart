@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_advanced/application/app_prefrances.dart';
+import 'package:flutter_advanced/application/app_preferences.dart';
 import 'package:flutter_advanced/application/constants.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -20,16 +20,16 @@ class DioFactory {
     Map<String, String> headers = {
       contentType: applicationJson,
       accept: applicationJson,
-      authorization: Constants.token,
+      authorization: Constants.kToken,
       defaultLanguage: appLanguage,
     };
     Dio dio = Dio();
 
     dio.options = BaseOptions(
-        baseUrl: Constants.baseUrl,
-        sendTimeout: Constants.timeout,
-        receiveTimeout: Constants.timeout,
-        connectTimeout: Constants.timeout,
+        baseUrl: Constants.kBaseUrl,
+        sendTimeout: Constants.kTimeout,
+        receiveTimeout: Constants.kTimeout,
+        connectTimeout: Constants.kTimeout,
         headers: headers);
     if (kDebugMode) {
       dio.interceptors.add(PrettyDioLogger(

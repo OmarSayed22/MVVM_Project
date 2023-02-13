@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_advanced/application/app_preferences.dart';
 import 'package:flutter_advanced/application/dependency_injection.dart';
 import 'package:flutter_advanced/presentation/login/view_model/login_view_model.dart';
 import 'package:flutter_advanced/presentation/resources/resources.dart';
@@ -16,7 +17,8 @@ class LoginView extends StatefulWidget {
 }
 
 class LoginViewState extends State<LoginView> {
-  final LoginViewModel _loginViewModel = instance<LoginViewModel>();
+  final LoginViewModel _viewModel = instance<LoginViewModel>();
+  final AppPreferences _appPreferences = instance<AppPreferences>();
   final TextEditingController _userNameTextEditingController =
       TextEditingController();
   final TextEditingController _passwordTextEditingController =
@@ -26,24 +28,24 @@ class LoginViewState extends State<LoginView> {
 
   @override
   void dispose() {
-    _loginViewModel.dispose();
+    _viewModel.dispose();
     super.dispose();
   }
 
   _bind() {
     _userNameTextEditingController.addListener(
-        () => _loginViewModel.setUserName(_userNameTextEditingController.text));
+        () => _viewModel.setUserName(_userNameTextEditingController.text));
     _passwordTextEditingController.addListener(
-        () => _loginViewModel.setPassword(_passwordTextEditingController.text));
-    _loginViewModel.isUserLoggedInStreamController.stream
-        .listen((isUserLogged) {
+        () => _viewModel.setPassword(_passwordTextEditingController.text));
+    _viewModel.isUserLoggedInStreamController.stream.listen((isUserLogged) {
       if (isUserLogged) {
+        _appPreferences.setLoggedIn();
         SchedulerBinding.instance.addPostFrameCallback((_) {
-          Navigator.pushReplacementNamed(context, Routes.homeRoute);
+          Navigator.pushReplacementNamed(context, Routes.mainRoute);
         });
       }
     });
-    _loginViewModel.start();
+    _viewModel.start();
   }
 
   @override
@@ -54,15 +56,23 @@ class LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorsManager.whiteColor,
-      body: StreamBuilder<FlowState>(
-        stream: _loginViewModel.outputState,
-        builder: (context, snapshot) {
-          return snapshot.data
-                  ?.getScreenWidget(context, _getContentWidget(), () {}) ??
-              _getContentWidget();
-        },
+    return GestureDetector(
+      onTap: () {
+        FocusNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          return currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: ColorsManager.whiteColor,
+        body: StreamBuilder<FlowState>(
+          stream: _viewModel.outputState,
+          builder: (context, snapshot) {
+            return snapshot.data
+                    ?.getScreenWidget(context, _getContentWidget(), () {}) ??
+                _getContentWidget();
+          },
+        ),
       ),
     );
   }
@@ -70,7 +80,7 @@ class LoginViewState extends State<LoginView> {
   Widget _getContentWidget() {
     return Container(
       padding: const EdgeInsets.only(
-          top: AppPadding.p100, left: AppPadding.p50, right: AppPadding.p50),
+          top: AppPadding.p100, left: AppPadding.p16, right: AppPadding.p16),
       child: SingleChildScrollView(
           controller: _scrollController,
           child: Form(
@@ -87,7 +97,7 @@ class LoginViewState extends State<LoginView> {
                   height: AppSize.size50,
                 ),
                 StreamBuilder<bool>(
-                    stream: _loginViewModel.outIsUserNameValid,
+                    stream: _viewModel.outIsUserNameValid,
                     builder: (context, snapshot) {
                       return TextFormField(
                         keyboardType: TextInputType.emailAddress,
@@ -105,11 +115,11 @@ class LoginViewState extends State<LoginView> {
                   height: AppSize.size20,
                 ),
                 StreamBuilder<bool>(
-                    stream: _loginViewModel.outIsPasswordValid,
+                    stream: _viewModel.outIsPasswordValid,
                     builder: (context, snapshot) {
                       return TextFormField(
                         keyboardType: TextInputType.text,
-                        style: Theme.of(context).textTheme.headline3,
+                        style: Theme.of(context).textTheme.displaySmall,
                         decoration: InputDecoration(
                           errorText: (snapshot.data ?? true)
                               ? null
@@ -123,7 +133,7 @@ class LoginViewState extends State<LoginView> {
                   height: AppSize.size50,
                 ),
                 StreamBuilder<bool>(
-                    stream: _loginViewModel.outAreAllInputsValid,
+                    stream: _viewModel.outAreAllInputsValid,
                     builder: (context, AsyncSnapshot<bool> snapshot) {
                       return ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -131,7 +141,7 @@ class LoginViewState extends State<LoginView> {
                                   const Size(double.infinity, AppSize.size50)),
                           onPressed: (snapshot.data ?? false)
                               ? () {
-                                  _loginViewModel.login();
+                                  _viewModel.login();
                                 }
                               : null,
                           child: const Text(
@@ -151,7 +161,7 @@ class LoginViewState extends State<LoginView> {
                         },
                         child: Text(
                           AppStringsManager.forgetPassword,
-                          style: Theme.of(context).textTheme.headline5,
+                          style: Theme.of(context).textTheme.bodySmall,
                         )),
                     TextButton(
                         onPressed: () {
@@ -159,7 +169,7 @@ class LoginViewState extends State<LoginView> {
                         },
                         child: Text(
                           AppStringsManager.signUp,
-                          style: Theme.of(context).textTheme.headline5,
+                          style: Theme.of(context).textTheme.bodySmall,
                         ))
                   ],
                 )

@@ -69,7 +69,7 @@ class ContentState extends FlowState {
   ContentState();
 
   @override
-  String getMessage() => Constants.empty;
+  String getMessage() => Constants.kEmpty;
 
   @override
   StateRendererTypes getStateRendererType() => StateRendererTypes.contentState;

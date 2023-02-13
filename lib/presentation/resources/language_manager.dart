@@ -1,15 +1,14 @@
-enum LanguageTypes { english, arabic }
+import '../../application/constants.dart';
 
-const String english = "en";
-const String arabic = "ar";
+enum LanguageTypes { english, arabic }
 
 extension LanguageTypesExtension on LanguageTypes {
   getValue() {
     switch (this) {
       case LanguageTypes.english:
-        return english;
+        return Constants.english;
       case LanguageTypes.arabic:
-        return arabic;
+        return Constants.arabic;
     }
   }
 }

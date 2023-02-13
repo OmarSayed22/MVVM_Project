@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_advanced/application/dependency_injection.dart';
 import 'package:flutter_advanced/presentation/on_boarding/viewmodel/on_boarding_view_model.dart';
 import 'package:flutter_advanced/presentation/resources/resources.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../application/app_preferences.dart';
 import '../../../domain/models/models.dart';
-import '../../resources/constants.dart';
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return OnBoardingViewState();
   }
 }
@@ -21,9 +21,11 @@ class OnBoardingViewState extends State<OnBoardingView> {
   final OnBoardingViewModel _viewModel = OnBoardingViewModel();
 
   final PageController _controller = PageController();
+  final AppPreferences _appPreferences = instance<AppPreferences>();
 
   @override
   void initState() {
+    _appPreferences.setOnBoardingComplete();
     _viewModel.start();
     super.initState();
   }
@@ -62,8 +64,9 @@ class OnBoardingViewState extends State<OnBoardingView> {
           },
           controller: _controller,
           itemCount: sliderViewObject.noOfSlides,
-          itemBuilder: (context, index) => OnBoardingPageView(
-              onBoardingPage: sliderViewObject.sliderObjectModel),
+          itemBuilder: (context, index) =>
+              OnBoardingPageView(
+                  onBoardingPage: sliderViewObject.sliderObjectModel),
         ),
         backgroundColor: ColorsManager.whiteColor,
         bottomSheet: Container(
@@ -84,7 +87,10 @@ class OnBoardingViewState extends State<OnBoardingView> {
                       child: Text(
                         AppStringsManager.skip,
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .headline4,
                       ),
                     ),
                   )),
@@ -108,19 +114,21 @@ class OnBoardingViewState extends State<OnBoardingView> {
         children: [
           _buildArrow(
             icon: ImageAssets.leftArrow,
-            onPressed: () => _controller.animateToPage(
-                _viewModel.goToPrevious(),
-                duration: Duration(seconds: onBoardingDuration),
-                curve: Curves.ease),
+            onPressed: () =>
+                _controller.animateToPage(
+                    _viewModel.goToPrevious(),
+                    duration: Duration(seconds: onBoardingDuration),
+                    curve: Curves.ease),
           ),
           Row(
             children: _buildCircles(sliderViewObject.currentIndex),
           ),
           _buildArrow(
             icon: ImageAssets.rightArrow,
-            onPressed: () => _controller.animateToPage(_viewModel.goToNext(),
-                duration: Duration(seconds: onBoardingDuration),
-                curve: Curves.ease),
+            onPressed: () =>
+                _controller.animateToPage(_viewModel.goToNext(),
+                    duration: Duration(seconds: onBoardingDuration),
+                    curve: Curves.ease),
           )
         ],
       ),
@@ -168,7 +176,10 @@ class OnBoardingPageView extends StatelessWidget {
           padding: const EdgeInsets.all(AppPadding.p8),
           child: Text(
             onBoardingPage.title,
-            style: Theme.of(context).textTheme.headline1,
+            style: Theme
+                .of(context)
+                .textTheme
+                .headline1,
           ),
         ),
         Padding(
@@ -176,7 +187,10 @@ class OnBoardingPageView extends StatelessWidget {
           child: Text(
             onBoardingPage.subTitle,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline2,
+            style: Theme
+                .of(context)
+                .textTheme
+                .headline2,
           ),
         ),
         const SizedBox(

@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced/presentation/resources/constants.dart';
+import 'package:flutter_advanced/application/app_preferences.dart';
+import 'package:flutter_advanced/application/dependency_injection.dart';
 import 'package:flutter_advanced/presentation/resources/resources.dart';
 
 class SplashView extends StatefulWidget {
@@ -21,8 +22,22 @@ class SplashViewState extends State<SplashView> {
     _timer = Timer(Duration(seconds: splashDuration), _goToNext);
   }
 
-  void _goToNext() {
-    Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
+  void _goToNext() async {
+    // when get instance from AppPreferences before starting causing exception
+    final AppPreferences appPreferences = instance<AppPreferences>();
+    await appPreferences.isLoggedIn().then((isLoggedIn) {
+      if (isLoggedIn) {
+        Navigator.pushReplacementNamed(context, Routes.mainRoute);
+      } else {
+        appPreferences.isOnBoardingComplete().then((isOnBoardingComplete) {
+          if (isOnBoardingComplete) {
+            Navigator.pushReplacementNamed(context, Routes.loginRoute);
+          } else {
+            Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
+          }
+        });
+      }
+    });
   }
 
   @override

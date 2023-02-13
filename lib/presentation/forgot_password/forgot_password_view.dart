@@ -43,15 +43,23 @@ class ForgotPasswordViewState extends State<ForgotPasswordView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorsManager.whiteColor,
-      body: StreamBuilder<FlowState>(
-        stream: _forgetPasswordViewModel.outputState,
-        builder: (context, snapshot) {
-          return snapshot.data
-                  ?.getScreenWidget(context, _getContentWidget(), () {}) ??
-              _getContentWidget();
-        },
+    return GestureDetector(
+      onTap: () {
+        FocusNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          return currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: ColorsManager.whiteColor,
+        body: StreamBuilder<FlowState>(
+          stream: _forgetPasswordViewModel.outputState,
+          builder: (context, snapshot) {
+            return snapshot.data
+                    ?.getScreenWidget(context, _getContentWidget(), () {}) ??
+                _getContentWidget();
+          },
+        ),
       ),
     );
   }
