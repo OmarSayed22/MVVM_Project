@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:country_picker/country_picker.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_advanced/presentation/common/state_renderer/state_renderer_implementation.dart';
@@ -73,7 +74,6 @@ class SignUpViewState extends State<SignUpView> {
 
   @override
   Widget build(BuildContext context) {
-    child:
     return GestureDetector(
       onTap: () {
         FocusNode currentFocus = FocusScope.of(context);
@@ -122,7 +122,7 @@ class SignUpViewState extends State<SignUpView> {
                     child: buildCustomTextFormField(
                       _viewModel.outputFirstNameMessage,
                       TextInputType.name,
-                      AppStringsManager.firstName,
+                      AppStringsManager.firstName.tr(),
                       _firstNameTextEditingController,
                     ),
                   ),
@@ -131,7 +131,7 @@ class SignUpViewState extends State<SignUpView> {
                     child: buildCustomTextFormField(
                       _viewModel.outputLastNameMessage,
                       TextInputType.name,
-                      AppStringsManager.lastName,
+                      AppStringsManager.lastName.tr(),
                       _lastNameTextEditingController,
                     ),
                   ),
@@ -141,14 +141,13 @@ class SignUpViewState extends State<SignUpView> {
               buildCustomTextFormField(
                 _viewModel.outputMobileNumberMessage,
                 TextInputType.name,
-                AppStringsManager.mobileNumber,
+                AppStringsManager.mobileNumber.tr(),
                 _mobileNumberTextEditingController,
                 prefixIcon: TextButton(
                   onPressed: () {
                     showCountryPicker(
                         context: context,
                         onSelect: (country) {
-                          print(country.flagEmoji);
                           _viewModel
                               .setCountryMobileCode("+${country.phoneCode}");
                           _viewModel.setFlag(country.flagEmoji);
@@ -163,7 +162,7 @@ class SignUpViewState extends State<SignUpView> {
                           style: getRegularStyle(
                               color: ColorsManager.blackColor,
                               fontSize: FontSize.s24),
-                        );
+                        ).tr();
                       }),
                 ),
               ),
@@ -172,21 +171,21 @@ class SignUpViewState extends State<SignUpView> {
               buildCustomTextFormField(
                   _viewModel.outputEmailMessage,
                   TextInputType.text,
-                  AppStringsManager.email,
+                  AppStringsManager.email.tr(),
                   _emailTextEditingController),
 
               //Password
               buildCustomTextFormField(
                   _viewModel.outputPasswordMessage,
                   TextInputType.text,
-                  AppStringsManager.password,
+                  AppStringsManager.password.tr(),
                   _passwordTextEditingController),
 
               //confirm password
               buildCustomTextFormField(
                   _viewModel.outputConfirmPasswordMessage,
                   TextInputType.text,
-                  AppStringsManager.confirmPassword,
+                  AppStringsManager.confirmPassword.tr(),
                   _confirmPasswordTextEditingController),
 
               // profile Picture
@@ -208,8 +207,8 @@ class SignUpViewState extends State<SignUpView> {
                                   _viewModel.signup();
                                 }
                               : null,
-                          child: const Text(
-                            AppStringsManager.signup,
+                          child: Text(
+                            AppStringsManager.signup.tr(),
                           )),
                     );
                   }),
@@ -217,9 +216,11 @@ class SignUpViewState extends State<SignUpView> {
                 height: AppSize.size10,
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   child: Text(
-                    AppStringsManager.alreadyHaveAccount,
+                    AppStringsManager.alreadyHaveAccount.tr(),
                     style: Theme.of(context).textTheme.bodySmall,
                   )),
             ],
@@ -271,7 +272,7 @@ class SignUpViewState extends State<SignUpView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              AppStringsManager.profilePicture,
+              AppStringsManager.profilePicture.tr(),
               style: getRegularStyle(
                   color: ColorsManager.primaryColor, fontSize: FontSize.s14),
             ),
@@ -289,7 +290,7 @@ class SignUpViewState extends State<SignUpView> {
             child: Wrap(
               children: [
                 ListTile(
-                  title: const Text(AppStringsManager.photoFromGallery),
+                  title: const Text(AppStringsManager.photoFromGallery).tr(),
                   trailing: const Icon(Icons.browse_gallery),
                   onTap: () {
                     _getPhotoFromGallery();
@@ -297,7 +298,7 @@ class SignUpViewState extends State<SignUpView> {
                   },
                 ),
                 ListTile(
-                  title: const Text(AppStringsManager.photoFromCamera),
+                  title: const Text(AppStringsManager.photoFromCamera).tr(),
                   trailing: const Icon(Icons.camera_enhance),
                   onTap: () {
                     _getPhotoFromCamera();
@@ -318,6 +319,5 @@ class SignUpViewState extends State<SignUpView> {
   _getPhotoFromGallery() async {
     var photo = await _imagePicker.pickImage(source: ImageSource.gallery);
     _viewModel.setProfilePicture(File(photo?.path ?? ""));
-    print(photo?.path);
   }
 }

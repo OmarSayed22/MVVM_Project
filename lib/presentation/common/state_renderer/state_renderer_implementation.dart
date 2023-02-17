@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/application/constants.dart';
 import 'package:flutter_advanced/presentation/common/state_renderer/state_renderer.dart';
@@ -16,12 +17,10 @@ class LoadingState extends FlowState {
   StateRendererTypes stateRendererType;
   String? message;
 
-  LoadingState(
-      {required this.stateRendererType,
-      this.message = AppStringsManager.loading});
+  LoadingState({required this.stateRendererType, this.message});
 
   @override
-  String getMessage() => message ?? AppStringsManager.loading;
+  String getMessage() => message ?? AppStringsManager.loading.tr();
 
   @override
   StateRendererTypes getStateRendererType() => stateRendererType;
@@ -44,7 +43,7 @@ class ErrorState extends FlowState {
   StateRendererTypes getStateRendererType() => stateRendererType;
 
   @override
-  String? getTitle() => AppStringsManager.error;
+  String? getTitle() => AppStringsManager.error.tr();
 }
 
 //Success State (full Screen or popup)
@@ -61,7 +60,7 @@ class SuccessState extends FlowState {
   StateRendererTypes getStateRendererType() => stateRendererType;
 
   @override
-  String? getTitle() => AppStringsManager.success;
+  String? getTitle() => AppStringsManager.success.tr();
 }
 
 // content State (full Screen or popup)

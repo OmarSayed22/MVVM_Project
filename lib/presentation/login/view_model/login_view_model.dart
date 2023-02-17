@@ -40,8 +40,6 @@ class LoginViewModel extends BaseViewModel
       inputState
           .add(ErrorState(StateRendererTypes.popupErrorState, failure.message));
     }, (data) {
-      inputState.add(
-          SuccessState(StateRendererTypes.popupSuccessState, data.message));
       isUserLoggedInStreamController.add(true);
     });
   }

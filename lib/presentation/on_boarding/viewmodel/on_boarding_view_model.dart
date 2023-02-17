@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_advanced/presentation/base/base_view_model.dart';
 
 import '../../../domain/models/models.dart';
@@ -51,20 +52,20 @@ class OnBoardingViewModel extends BaseViewModel
 
   List<SliderObjectModel> _getSliderData() => <SliderObjectModel>[
         SliderObjectModel(
-            title: AppStringsManager.onBoardingTitle1,
-            subTitle: AppStringsManager.onBoardingSubTitle1,
+            title: AppStringsManager.onBoardingTitle1.tr(),
+            subTitle: AppStringsManager.onBoardingSubTitle1.tr(),
             image: ImageAssets.onBoardingLogo1),
         SliderObjectModel(
-            title: AppStringsManager.onBoardingTitle2,
-            subTitle: AppStringsManager.onBoardingSubTitle2,
+            title: AppStringsManager.onBoardingTitle2.tr(),
+            subTitle: AppStringsManager.onBoardingSubTitle2.tr(),
             image: ImageAssets.onBoardingLogo2),
         SliderObjectModel(
-            title: AppStringsManager.onBoardingTitle3,
-            subTitle: AppStringsManager.onBoardingSubTitle3,
+            title: AppStringsManager.onBoardingTitle3.tr(),
+            subTitle: AppStringsManager.onBoardingSubTitle3.tr(),
             image: ImageAssets.onBoardingLogo3),
         SliderObjectModel(
-            title: AppStringsManager.onBoardingTitle4,
-            subTitle: AppStringsManager.onBoardingSubTitle4,
+            title: AppStringsManager.onBoardingTitle4.tr(),
+            subTitle: AppStringsManager.onBoardingSubTitle4.tr(),
             image: ImageAssets.onBoardingLogo4),
       ];
 

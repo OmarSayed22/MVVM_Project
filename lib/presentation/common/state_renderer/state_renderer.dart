@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/presentation/resources/resources.dart';
 import 'package:lottie/lottie.dart';
@@ -44,14 +45,14 @@ class StateRenderer extends StatelessWidget {
         return _buildPopupDialog(context, [
           _buildAnimatedImage(JsonAssets.error),
           _buildMessage(message),
-          _buildRetryButton(AppStringsManager.ok, context)
+          _buildRetryButton(AppStringsManager.ok.tr(), context)
         ]);
       case StateRendererTypes.popupSuccessState:
         return _buildPopupDialog(context, [
           _buildAnimatedImage(JsonAssets.success),
           _buildTitle(title),
           _buildMessage(message),
-          _buildRetryButton(AppStringsManager.ok, context)
+          _buildRetryButton(AppStringsManager.ok.tr(), context)
         ]);
       case StateRendererTypes.fullScreenLoadingState:
         return Center(
@@ -64,7 +65,7 @@ class StateRenderer extends StatelessWidget {
         return _buildItemsColumn([
           _buildAnimatedImage(JsonAssets.error),
           _buildMessage(message),
-          _buildRetryButton(AppStringsManager.retryAgain, context),
+          _buildRetryButton(AppStringsManager.retryAgain.tr(), context),
         ]);
       case StateRendererTypes.fullScreenEmptyState:
         return _buildItemsColumn([

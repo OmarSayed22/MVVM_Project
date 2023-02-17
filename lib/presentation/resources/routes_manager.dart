@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/application/dependency_injection.dart';
 import 'package:flutter_advanced/presentation/forgot_password/forgot_password_view.dart';
@@ -5,7 +6,7 @@ import 'package:flutter_advanced/presentation/on_boarding/view/on_boarding_view.
 import 'package:flutter_advanced/presentation/resources/strings_manager.dart';
 import 'package:flutter_advanced/presentation/sign_up/sign_up_view.dart';
 import 'package:flutter_advanced/presentation/splash/splash_view.dart';
-import 'package:flutter_advanced/presentation/store_details/store_details.dart';
+import 'package:flutter_advanced/presentation/store_details/view/store_details.dart';
 
 import '../login/view/login_view.dart';
 import '../main/main_view.dart';
@@ -40,6 +41,7 @@ class RouteGenerator {
         initHomeModule();
         return MaterialPageRoute(builder: (_) => const MainView());
       case Routes.storeDetailsRoute:
+        initStoreDetailsModule();
         return MaterialPageRoute(builder: (_) => const StoreDetails());
       default:
         return unDefinedRoute();
@@ -49,8 +51,8 @@ class RouteGenerator {
   static Route<dynamic> unDefinedRoute() => MaterialPageRoute(
       builder: (_) => Scaffold(
             appBar: AppBar(
-              title: const Text(AppStringsManager.noRouteFound),
+              title: Text(AppStringsManager.noRouteFound.tr()),
             ),
-            body: const Center(child: Text(AppStringsManager.noRouteFound)),
+            body: Center(child: Text(AppStringsManager.noRouteFound.tr())),
           ));
 }

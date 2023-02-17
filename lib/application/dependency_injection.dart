@@ -11,9 +11,11 @@ import 'package:flutter_advanced/domain/use_cases/get_home_data_use_case.dart';
 import 'package:flutter_advanced/domain/use_cases/login_use_case.dart';
 import 'package:flutter_advanced/domain/use_cases/reset_password_use_case.dart';
 import 'package:flutter_advanced/domain/use_cases/signup_use_case.dart';
+import 'package:flutter_advanced/domain/use_cases/store_details_use_case.dart';
 import 'package:flutter_advanced/presentation/login/view_model/login_view_model.dart';
 import 'package:flutter_advanced/presentation/main/home/viewmodel/home_view_model.dart';
 import 'package:flutter_advanced/presentation/sign_up/view_model/signup_view_model.dart';
+import 'package:flutter_advanced/presentation/store_details/view_model/store_details_view_model.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -31,11 +33,11 @@ Future<void> initAppModule() async {
 
   //App preference instance
   instance.registerLazySingleton<AppPreferences>(
-      () => AppPreferences(instance<SharedPreferences>()));
+          () => AppPreferences(instance<SharedPreferences>()));
   //Internet Info  instance
 
   instance.registerLazySingleton<NetworkInfo>(
-      () => NetworkInfoImpl(InternetConnectionChecker()));
+          () => NetworkInfoImpl(InternetConnectionChecker()));
 
   // Dio Factory instance
   instance.registerLazySingleton<DioFactory>(() => DioFactory(instance()));
@@ -44,11 +46,11 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
   // Remote Data source instance
   instance.registerLazySingleton<RemoteDataSource>(
-      () => RemoteDataSourceImpl(instance()));
+          () => RemoteDataSourceImpl(instance()));
   instance.registerLazySingleton<LocalDataSource>(() => LocalDataSourceImpl());
 // Repository instance
   instance.registerLazySingleton<Repository>(
-      () => RepositoryImpl(instance(), instance(), instance()));
+          () => RepositoryImpl(instance(), instance(), instance()));
 }
 
 initLoginModule() {
@@ -70,9 +72,9 @@ initSignupModule() {
 initForgetPasswordModule() {
   if (!GetIt.I.isRegistered<ForgetPasswordViewModel>()) {
     instance.registerFactory<ResetPasswordUseCase>(
-        () => ResetPasswordUseCase(instance()));
+            () => ResetPasswordUseCase(instance()));
     instance.registerFactory<ForgetPasswordViewModel>(
-        () => ForgetPasswordViewModel(instance()));
+            () => ForgetPasswordViewModel(instance()));
   }
 }
 
@@ -81,5 +83,15 @@ initHomeModule() {
     instance
         .registerFactory<HomeDataUseCase>(() => HomeDataUseCase(instance()));
     instance.registerFactory<HomeViewModel>(() => HomeViewModel(instance()));
+  }
+}
+
+initStoreDetailsModule() {
+  if (!GetIt.I.isRegistered<StoreDetailsViewModel>()) {
+    instance
+        .registerFactory<StoreDetailsUseCase>(() =>
+        StoreDetailsUseCase(instance()));
+    instance.registerFactory<StoreDetailsViewModel>(() =>
+        StoreDetailsViewModel(instance()));
   }
 }

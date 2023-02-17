@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../resources/strings_manager.dart';
@@ -14,6 +15,6 @@ class SearchPage extends StatefulWidget {
 class SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text(AppStringsManager.search));
+    return Center(child: const Text(AppStringsManager.search).tr());
   }
 }

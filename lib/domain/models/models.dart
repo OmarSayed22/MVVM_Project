@@ -89,3 +89,15 @@ class HomeData {
 
   HomeData(this.message, this.data);
 }
+
+class StoreDetails {
+  String image;
+  int id;
+  String title;
+  String details;
+  String services;
+  String about;
+
+  StoreDetails(
+      this.image, this.id, this.title, this.details, this.services, this.about);
+}

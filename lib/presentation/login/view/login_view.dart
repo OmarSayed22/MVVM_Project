@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_advanced/application/app_preferences.dart';
@@ -101,12 +102,12 @@ class LoginViewState extends State<LoginView> {
                     builder: (context, snapshot) {
                       return TextFormField(
                         keyboardType: TextInputType.emailAddress,
-                        style: Theme.of(context).textTheme.headline3,
+                        style: Theme.of(context).textTheme.displaySmall,
                         decoration: InputDecoration(
                           errorText: (snapshot.data ?? true)
                               ? null
-                              : AppStringsManager.loginErrMassage,
-                          hintText: AppStringsManager.username,
+                              : AppStringsManager.loginErrMassage.tr(),
+                          hintText: AppStringsManager.username.tr(),
                         ),
                         controller: _userNameTextEditingController,
                       );
@@ -123,8 +124,8 @@ class LoginViewState extends State<LoginView> {
                         decoration: InputDecoration(
                           errorText: (snapshot.data ?? true)
                               ? null
-                              : AppStringsManager.loginErrMassage,
-                          hintText: AppStringsManager.password,
+                              : AppStringsManager.loginErrMassage.tr(),
+                          hintText: AppStringsManager.password.tr(),
                         ),
                         controller: _passwordTextEditingController,
                       );
@@ -144,8 +145,8 @@ class LoginViewState extends State<LoginView> {
                                   _viewModel.login();
                                 }
                               : null,
-                          child: const Text(
-                            AppStringsManager.login,
+                          child: Text(
+                            AppStringsManager.login.tr(),
                           ));
                     }),
                 const SizedBox(
@@ -160,17 +161,17 @@ class LoginViewState extends State<LoginView> {
                               context, Routes.forgotPasswordRoute);
                         },
                         child: Text(
-                          AppStringsManager.forgetPassword,
+                          AppStringsManager.forgetPassword.tr(),
                           style: Theme.of(context).textTheme.bodySmall,
-                        )),
+                        ).tr()),
                     TextButton(
                         onPressed: () {
                           Navigator.pushNamed(context, Routes.signUpRoute);
                         },
                         child: Text(
-                          AppStringsManager.signUp,
+                          AppStringsManager.signUp.tr(),
                           style: Theme.of(context).textTheme.bodySmall,
-                        ))
+                        ).tr())
                   ],
                 )
               ],

@@ -15,7 +15,12 @@ class ImageAssets {
   static const String search = '$imagePath/search.svg';
   static const String notification = '$imagePath/bell.svg';
   static const String settings = '$imagePath/more.svg';
-  static const String logout = '$imagePath/logo.svg';
+  static const String logout = '$imagePath/logout_ic.svg';
+  static const String changeLangIc = '$imagePath/change_lang_ic.svg';
+  static const String contactUsIc = '$imagePath/contact_us_ic.svg';
+  static const String inviteFriendsIc = '$imagePath/invite_friends_ic.svg';
+  static const String settingsRightArrowIc =
+      '$imagePath/settings_right_arrow_ic.svg';
 }
 
 class JsonAssets {

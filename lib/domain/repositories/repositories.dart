@@ -12,4 +12,6 @@ abstract class Repository {
   Future<Either<Failure, String>> resetPassword(String userName);
 
   Future<Either<Failure, HomeData>> getHomeData();
+
+  Future<Either<Failure, StoreDetails>> getStoreDetails();
 }

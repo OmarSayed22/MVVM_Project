@@ -46,17 +46,17 @@ ThemeData getAppTheme() => ThemeData(
     //Tex
     textTheme: TextTheme(
         displayLarge: getSemiBoldStyle(
-            color: ColorsManager.darkGrayColor, fontSize: FontSize.s16),
+            color: ColorsManager.primaryColor, fontSize: FontSize.s16),
         displayMedium: getRegularStyle(
             color: ColorsManager.darkGrayColor, fontSize: FontSize.s14),
         displaySmall: getRegularStyle(
-            color: ColorsManager.blackColor, fontSize: FontSize.s14),
+            color: ColorsManager.grayColor3, fontSize: FontSize.s14),
         headlineMedium: getMediumStyle(
             color: ColorsManager.primaryColor, fontSize: FontSize.s16),
         headlineSmall: getRegularStyle(
             color: ColorsManager.darkGrayColor, fontSize: FontSize.s12),
         bodyMedium: getMediumStyle(
-            color: ColorsManager.darkGrayColor, fontSize: FontSize.s14),
+            color: ColorsManager.grayColor1, fontSize: FontSize.s14),
         bodySmall: getMediumStyle(
             color: ColorsManager.primaryColor, fontSize: FontSize.s12),
         labelLarge: getRegularStyle(

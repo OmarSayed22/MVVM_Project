@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_advanced/domain/use_cases/signup_use_case.dart';
 import 'package:flutter_advanced/presentation/common/state_renderer/state_renderer_implementation.dart';
 import 'package:flutter_advanced/presentation/resources/resources.dart';
@@ -193,37 +194,37 @@ class SignupViewModel extends BaseViewModel
   Stream<String?> get outputFirstNameMessage =>
       _firstNameStreamController.stream.map((firstName) => _getEmptyErrMessage(
           input: firstName,
-          errorMessage: AppStringsManager.firstNameErrorMessage));
+          errorMessage: AppStringsManager.firstNameErrorMessage.tr()));
 
   @override
   Stream<String?> get outputLastNameMessage =>
       _lastNameStreamController.stream.map((lastName) => _getEmptyErrMessage(
           input: lastName,
-          errorMessage: AppStringsManager.lastNameErrorMessage));
+          errorMessage: AppStringsManager.lastNameErrorMessage.tr()));
 
   @override
   Stream<String?> get outputMobileNumberMessage =>
       _mobileNumberStreamController.stream.map((mobileNumber) =>
           _getEmptyValidationErrMessage(
               input: mobileNumber,
-              errorMessage: AppStringsManager.mobileNumberErrorMessage,
-              inValidMessage: AppStringsManager.mobileNumberInValidMessage,
+              errorMessage: AppStringsManager.mobileNumberErrorMessage.tr(),
+              inValidMessage: AppStringsManager.mobileNumberInValidMessage.tr(),
               pattern: AppStringsManager.mobilePattern));
 
   @override
   Stream<String?> get outputEmailMessage => _emailStreamController.stream.map(
       (password) => _getEmptyValidationErrMessage(
           input: password,
-          errorMessage: AppStringsManager.emailErrMassage,
-          inValidMessage: AppStringsManager.emailInValidMessage,
+          errorMessage: AppStringsManager.emailErrMassage.tr(),
+          inValidMessage: AppStringsManager.emailInValidMessage.tr(),
           pattern: AppStringsManager.emailPattern));
 
   @override
   Stream<String?> get outputPasswordMessage => _passwordStreamController.stream
       .map((password) => _getEmptyValidationErrMessage(
           input: password,
-          errorMessage: AppStringsManager.passwordErrorMessage,
-          inValidMessage: AppStringsManager.passwordInValidMessage,
+          errorMessage: AppStringsManager.passwordErrorMessage.tr(),
+          inValidMessage: AppStringsManager.passwordInValidMessage.tr(),
           pattern: AppStringsManager.passwordPattern));
 
   @override
@@ -268,16 +269,16 @@ class SignupViewModel extends BaseViewModel
       required String inValidMessage,
       required String pattern}) {
     if (input.isEmpty) {
-      return errorMessage;
+      return errorMessage.tr();
     } else if (!isValid(input: input, pattern: pattern)) {
-      return inValidMessage;
+      return inValidMessage.tr();
     }
     return null;
   }
 
   String? _getEmptyErrMessage(
           {required String input, required String errorMessage}) =>
-      input.isNotEmpty ? null : errorMessage;
+      input.isNotEmpty ? null : errorMessage.tr();
 
   bool _isPasswordsMatch(String confirmPassword) {
     if (confirmPassword == signupObject.confirmPassword) {
@@ -291,21 +292,11 @@ class SignupViewModel extends BaseViewModel
     if (confirmPassword.isNotEmpty) {
       return null;
     } else {
-      return AppStringsManager.confirmPasswordErrorMessage;
+      return AppStringsManager.confirmPasswordErrorMessage.tr();
     }
   }
 
   bool _areAllInputsValid() {
-    print("firstName ${signupObject.firstName.isNotEmpty}");
-    print("lastName ${signupObject.lastName.isNotEmpty}");
-    print("countryMobileCode ${signupObject.countryMobileCode.isNotEmpty}");
-    print("firstName ${signupObject.firstName.isNotEmpty}");
-    print("mobileNumber ${signupObject.mobileNumber.isNotEmpty}");
-    print("email ${signupObject.email.isNotEmpty}");
-    print("password ${signupObject.password.isNotEmpty}");
-    print("confirmPassword ${signupObject.confirmPassword.isNotEmpty}");
-    print("profilePicture ${signupObject.profilePicture.isNotEmpty}");
-
     return signupObject.firstName.isNotEmpty &&
         signupObject.lastName.isNotEmpty &&
         signupObject.countryMobileCode.isNotEmpty &&

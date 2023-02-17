@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_advanced/domain/models/models.dart';
 import 'package:flutter_advanced/presentation/common/state_renderer/state_renderer_implementation.dart';
 import 'package:flutter_advanced/presentation/main/home/viewmodel/home_view_model.dart';
@@ -38,13 +40,11 @@ class HomePageState extends State<HomePage> {
             stream: _viewModel.outputState,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                print(snapshot.data.toString());
                 return snapshot.data!
                     .getScreenWidget(context, _getContentWidget(), () {
                   _viewModel.start();
                 });
               } else {
-                print(snapshot.data.toString());
                 return Container();
               }
             }),
@@ -68,9 +68,9 @@ class HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _getBanners(snapshot.data?.banners),
-              _getTitle(AppStringsManager.services),
+              _getTitle(AppStringsManager.services.tr()),
               _getServices(snapshot.data?.services),
-              _getTitle(AppStringsManager.stores),
+              _getTitle(AppStringsManager.stores.tr()),
               _getStores(snapshot.data?.stores),
             ],
           );
@@ -97,7 +97,7 @@ class HomePageState extends State<HomePage> {
                         child: Image.network(
                           height: AppSize.size100,
                           banner.image,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                           loadingBuilder: (BuildContext context, Widget child,
                               ImageChunkEvent? loadingProgress) {
                             if (loadingProgress == null) {
@@ -155,35 +155,44 @@ class HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(AppPadding.p8),
           crossAxisCount: AppSize.size1.toInt(),
           children: List.generate(stores.length, (index) {
-            return Card(
-              shadowColor: ColorsManager.grayColor1,
-              elevation: AppSize.size1_5,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(AppSize.size10),
-                  side: const BorderSide(
-                    width: AppSize.size1,
-                    color: Colors.transparent,
-                  )),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(AppSize.size10),
-                child: Image.network(
-                  height: AppSize.size100,
-                  stores[index].image,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
-                    if (loadingProgress == null) {
-                      return child;
-                    }
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    );
+            return InkWell(
+              onTap: () {
+                SchedulerBinding.instance.addPostFrameCallback(
+                  (_) {
+                    Navigator.pushNamed(context, Routes.storeDetailsRoute);
                   },
+                );
+              },
+              child: Card(
+                shadowColor: ColorsManager.grayColor1,
+                elevation: AppSize.size1_5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(AppSize.size10),
+                    side: const BorderSide(
+                      width: AppSize.size1,
+                      color: Colors.transparent,
+                    )),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(AppSize.size10),
+                  child: Image.network(
+                    height: AppSize.size100,
+                    stores[index].image,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             );

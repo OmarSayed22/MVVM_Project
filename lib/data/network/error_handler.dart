@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_advanced/data/network/failure.dart';
+import 'package:flutter_advanced/presentation/resources/resources.dart';
 
 class ErrorHandler implements Exception {
   late Failure failure;
@@ -53,7 +55,7 @@ enum DataSources {
   unknown;
 }
 
-class ResponseCod {
+class ResponseCode {
   static const int success = 200;
 
   //The request succeeded.
@@ -97,32 +99,29 @@ class ResponseCod {
 }
 
 class ResponseMessage {
-  static const String success = "success";
+  static String success = AppStringsManager.success.tr();
 
   //The request succeeded.
-  static const String noContent = "There is no content";
+  static String noContent = AppStringsManager.noContent.tr();
 
   //There is no content to send for this request, but the headers may be useful.
   // The user agent may update its cached headers for this resource with the new ones.
-  static const String badRequest = "Bad request , try again later";
+  static String badRequest = AppStringsManager.badRequest.tr();
 
   //The server cannot or will not process the request due to something
   // that is perceived to be a client error (e.g., malformed request syntax,
   // invalid request message framing, or deceptive request routing).
-  static const String forbidden =
-      "The client does not have access rights to the content";
+  static String forbidden = AppStringsManager.forbidden.tr();
 
   // The client does not have access rights to the content; that is, it is
   // unauthorized, so the server is refusing to give the requested resource.
   // Unlike 401 Unauthorized, the client's identity is known to the server.
-  static const String unauthorised =
-      "The client is an unauthorized, try again later";
+  static String unauthorised = AppStringsManager.unauthorised.tr();
 
   //Although the HTTP standard specifies "unauthorized", semantically this
   // response means "unauthenticated". That is, the client must authenticate
   // itself to get the requested response.
-  static const String notFound =
-      "The server cannot find the requested resource, try again later";
+  static String notFound = AppStringsManager.notFound.tr();
 
   //The server cannot find the requested resource. In the browser, this means
   // the URL is not recognized. In an API, this can also mean that the endpoint
@@ -130,70 +129,67 @@ class ResponseMessage {
   // response instead of 403 Forbidden to hide the existence of a resource from
   // an unauthorized client. This response code is probably the most well known
   // due to its frequent occurrence on the web.
-  static const String internetServerError =
-      "Some thing went wrong with the server, please try again later";
+  static String internetServerError =
+      AppStringsManager.internetServerError.tr();
 
   //The server has encountered a situation it does not know how to handle.
-  static const String connectTimeout =
-      "timed out error, please try again later";
-  static const String cancel = "Request was canceled, please try again later";
-  static const String receiveTimeout =
-      "timed out error, please try again later";
-  static const String sendTimeout = "timed out error, please try again later";
-  static const String cacheError = "Cache error, please try again later";
-  static const String noInternetConnection =
-      "Please check your internet connection";
-  static const String unknown =
-      "Some thing went wrong with the server, please try again later";
+  static String connectTimeout = AppStringsManager.connectTimeout.tr();
+  static String cancel = AppStringsManager.cancel.tr();
+  static String receiveTimeout = AppStringsManager.receiveTimeout.tr();
+  static String sendTimeout = AppStringsManager.sendTimeout.tr();
+  static String cacheError = AppStringsManager.cacheError.tr();
+  static String noInternetConnection =
+      AppStringsManager.noInternetConnection.tr();
+  static String unknown = AppStringsManager.unknown.tr();
 }
 
 extension DataSourcesExtension on DataSources {
   getFailure() {
     switch (this) {
       case DataSources.success:
-        return Failure(ResponseCod.success, ResponseMessage.success);
+        return Failure(ResponseCode.success, ResponseMessage.success);
 
       case DataSources.noContent:
-        return Failure(ResponseCod.noContent, ResponseMessage.noContent);
+        return Failure(ResponseCode.noContent, ResponseMessage.noContent);
 
       case DataSources.badRequest:
-        return Failure(ResponseCod.badRequest, ResponseMessage.badRequest);
+        return Failure(ResponseCode.badRequest, ResponseMessage.badRequest);
 
       case DataSources.forbidden:
-        return Failure(ResponseCod.forbidden, ResponseMessage.forbidden);
+        return Failure(ResponseCode.forbidden, ResponseMessage.forbidden);
 
       case DataSources.unauthorised:
-        return Failure(ResponseCod.unauthorised, ResponseMessage.unauthorised);
+        return Failure(ResponseCode.unauthorised, ResponseMessage.unauthorised);
 
       case DataSources.notFound:
-        return Failure(ResponseCod.notFound, ResponseMessage.notFound);
+        return Failure(ResponseCode.notFound, ResponseMessage.notFound);
 
       case DataSources.internetServerError:
-        return Failure(ResponseCod.internetServerError,
+        return Failure(ResponseCode.internetServerError,
             ResponseMessage.internetServerError);
 
       case DataSources.connectTimeout:
         return Failure(
-            ResponseCod.connectTimeout, ResponseMessage.connectTimeout);
+            ResponseCode.connectTimeout, ResponseMessage.connectTimeout);
 
       case DataSources.cancel:
-        return Failure(ResponseCod.cancel, ResponseMessage.cancel);
+        return Failure(ResponseCode.cancel, ResponseMessage.cancel);
 
       case DataSources.receiveTimeout:
         return Failure(
-            ResponseCod.receiveTimeout, ResponseMessage.receiveTimeout);
+            ResponseCode.receiveTimeout, ResponseMessage.receiveTimeout);
 
       case DataSources.sendTimeout:
-        return Failure(ResponseCod.sendTimeout, ResponseMessage.sendTimeout);
+        return Failure(ResponseCode.sendTimeout, ResponseMessage.sendTimeout);
 
       case DataSources.cacheError:
-        return Failure(ResponseCod.cacheError, ResponseMessage.cacheError);
+        return Failure(ResponseCode.cacheError, ResponseMessage.cacheError);
 
       case DataSources.noInternetConnection:
-        return Failure(ResponseCod.noInternetConnection,
+        return Failure(ResponseCode.noInternetConnection,
             ResponseMessage.noInternetConnection);
       case DataSources.unknown:
-        return Failure(ResponseCod.unknown, ResponseMessage.unknown);
+        return Failure(ResponseCode.unknown, ResponseMessage.unknown);
     }
   }
 }

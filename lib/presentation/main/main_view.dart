@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/presentation/main/home/view/home_page.dart';
 import 'package:flutter_advanced/presentation/main/search_page.dart';
@@ -12,25 +13,24 @@ class MainView extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return MainViewState();
   }
 }
 
 class MainViewState extends State<MainView> {
   final List<Widget> _pages = [
-    HomePage(),
+    const HomePage(),
     const SearchPage(),
     const NotificationPage(),
-    SettingsPage(),
+    const SettingsPage(),
   ];
 
   int currentIndex = 0;
   List<String> titles = [
-    AppStringsManager.home,
-    AppStringsManager.search,
-    AppStringsManager.notification,
-    AppStringsManager.settings,
+    AppStringsManager.home.tr(),
+    AppStringsManager.search.tr(),
+    AppStringsManager.notification.tr(),
+    AppStringsManager.settings.tr(),
   ];
 
   @override
@@ -56,16 +56,16 @@ class MainViewState extends State<MainView> {
           items: [
             BottomNavigationBarItem(
                 icon: SvgPicture.asset(ImageAssets.home),
-                label: AppStringsManager.home),
+                label: AppStringsManager.home.tr()),
             BottomNavigationBarItem(
                 icon: SvgPicture.asset(ImageAssets.search),
-                label: AppStringsManager.search),
+                label: AppStringsManager.search.tr()),
             BottomNavigationBarItem(
                 icon: SvgPicture.asset(ImageAssets.notification),
-                label: AppStringsManager.notification),
+                label: AppStringsManager.notification.tr()),
             BottomNavigationBarItem(
                 icon: SvgPicture.asset(ImageAssets.settings),
-                label: AppStringsManager.settings),
+                label: AppStringsManager.settings.tr()),
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/presentation/forgot_password/forgot_password_view_model.dart';
 import 'package:flutter_advanced/presentation/resources/resources.dart';
@@ -84,7 +85,6 @@ class ForgotPasswordViewState extends State<ForgotPasswordView> {
                 StreamBuilder<bool?>(
                     stream: _forgetPasswordViewModel.outputIsEmailValid(),
                     builder: (context, snapshot) {
-                      print(snapshot.data);
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -94,8 +94,8 @@ class ForgotPasswordViewState extends State<ForgotPasswordView> {
                             decoration: InputDecoration(
                               errorText: (snapshot.data ?? true)
                                   ? null
-                                  : AppStringsManager.emailErrMassage,
-                              hintText: AppStringsManager.username,
+                                  : AppStringsManager.emailErrMassage.tr(),
+                              hintText: AppStringsManager.username.tr(),
                             ),
                             controller: _emailTextEditingController,
                           ),
@@ -111,8 +111,8 @@ class ForgotPasswordViewState extends State<ForgotPasswordView> {
                                       _forgetPasswordViewModel.resetPassword();
                                     }
                                   : null,
-                              child: const Text(
-                                AppStringsManager.resetPassword,
+                              child: Text(
+                                AppStringsManager.resetPassword.tr(),
                               ))
                         ],
                       );

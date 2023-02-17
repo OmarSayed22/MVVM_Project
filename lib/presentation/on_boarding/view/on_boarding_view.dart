@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_advanced/application/dependency_injection.dart';
@@ -64,9 +65,8 @@ class OnBoardingViewState extends State<OnBoardingView> {
           },
           controller: _controller,
           itemCount: sliderViewObject.noOfSlides,
-          itemBuilder: (context, index) =>
-              OnBoardingPageView(
-                  onBoardingPage: sliderViewObject.sliderObjectModel),
+          itemBuilder: (context, index) => OnBoardingPageView(
+              onBoardingPage: sliderViewObject.sliderObjectModel),
         ),
         backgroundColor: ColorsManager.whiteColor,
         bottomSheet: Container(
@@ -85,12 +85,9 @@ class OnBoardingViewState extends State<OnBoardingView> {
                             context, Routes.loginRoute);
                       },
                       child: Text(
-                        AppStringsManager.skip,
+                        AppStringsManager.skip.tr(),
                         textAlign: TextAlign.center,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .headline4,
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
                     ),
                   )),
@@ -114,21 +111,19 @@ class OnBoardingViewState extends State<OnBoardingView> {
         children: [
           _buildArrow(
             icon: ImageAssets.leftArrow,
-            onPressed: () =>
-                _controller.animateToPage(
-                    _viewModel.goToPrevious(),
-                    duration: Duration(seconds: onBoardingDuration),
-                    curve: Curves.ease),
+            onPressed: () => _controller.animateToPage(
+                _viewModel.goToPrevious(),
+                duration: Duration(seconds: onBoardingDuration),
+                curve: Curves.ease),
           ),
           Row(
             children: _buildCircles(sliderViewObject.currentIndex),
           ),
           _buildArrow(
             icon: ImageAssets.rightArrow,
-            onPressed: () =>
-                _controller.animateToPage(_viewModel.goToNext(),
-                    duration: Duration(seconds: onBoardingDuration),
-                    curve: Curves.ease),
+            onPressed: () => _controller.animateToPage(_viewModel.goToNext(),
+                duration: Duration(seconds: onBoardingDuration),
+                curve: Curves.ease),
           )
         ],
       ),
@@ -176,10 +171,7 @@ class OnBoardingPageView extends StatelessWidget {
           padding: const EdgeInsets.all(AppPadding.p8),
           child: Text(
             onBoardingPage.title,
-            style: Theme
-                .of(context)
-                .textTheme
-                .headline1,
+            style: Theme.of(context).textTheme.displayLarge,
           ),
         ),
         Padding(
@@ -187,10 +179,7 @@ class OnBoardingPageView extends StatelessWidget {
           child: Text(
             onBoardingPage.subTitle,
             textAlign: TextAlign.center,
-            style: Theme
-                .of(context)
-                .textTheme
-                .headline2,
+            style: Theme.of(context).textTheme.headline2,
           ),
         ),
         const SizedBox(

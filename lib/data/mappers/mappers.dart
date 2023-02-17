@@ -73,3 +73,13 @@ extension HomeDataResponseMapper on HomeDataResponse? {
     return HomeData(this?.message.toEmpty() ?? Constants.kEmpty, data);
   }
 }
+
+extension StoreDetailsResponseMapper on StoreDetailsResponse? {
+  StoreDetails toDomain() => StoreDetails(
+      this?.image.toEmpty() ?? Constants.kEmpty,
+      this?.id.toZero() ?? Constants.kZero,
+      this?.title.toEmpty() ?? Constants.kEmpty,
+      this?.details.toEmpty() ?? Constants.kEmpty,
+      this?.services.toEmpty() ?? Constants.kEmpty,
+      this?.about.toEmpty() ?? Constants.kEmpty);
+}
